@@ -49,6 +49,61 @@ async function CalcularMontante() {
     }
     
 }
+async function ControladorCLP(){
+    const intensidade = document.getElementById('intensidade').value  
+
+   
+
+
+    const response = await fetch("/api/SensoresIndustriais",{
+        method: 'POST',
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify({
+            intensidade:intensidade
+        })
+    })
+    const data = await response.json()
+    document.getElementById('resultado').innerHTML =`Binário:${data.resultado}`
+
+     if(intensidade <0 || intensidade > 255){
+        alert(data.erro1)
+
+    }
+
+    if( intensidade > 230 &&  intensidade<=255 ){
+        alert(data.erro)
+        document.getElementById('resultado').innerHTML = `${data.resultado}`
+
+       
+
+    }
+
+
+    
+}
+async function Conversao(tipo) {
+    const celsius=document.getElementById('celsius').value
+    const kelvin=document.getElementById('kelvin').value
+    const far=document.getElementById('far').value
+
+    const response = await fetch ("/api/conversaoTemperaturas",{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+            celsius:celsius,
+            far:far,
+            kelvin:kelvin
+        })
+    })
+    const data = await response.json()
+
+    switch (tipo){
+        case 1:
+            document.getElementById('resultado').innerHTML=`Conversão bem sucedida resultado = ${data.celsius_parafar} F`
+            break;
+    }
+    
+}
 
 
     
