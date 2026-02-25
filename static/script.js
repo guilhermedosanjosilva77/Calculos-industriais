@@ -82,9 +82,9 @@ async function ControladorCLP(){
     
 }
 async function Conversao(tipo) {
-    const celsius=document.getElementById('celsius').value
-    const kelvin=document.getElementById('kelvin').value
-    const far=document.getElementById('far').value
+    const celsius=document.getElementById('celsius').value ||0
+    const kelvin= document.getElementById('kelvin').value || 0;     
+    const far=document.getElementById('far').value ||0;
 
     const response = await fetch ("/api/conversaoTemperaturas",{
         method:'POST',
@@ -97,10 +97,26 @@ async function Conversao(tipo) {
     })
     const data = await response.json()
 
+
+
     switch (tipo){
         case 1:
-            document.getElementById('resultado').innerHTML=`Conversão bem sucedida resultado = ${data.celsius_parafar} F`
+            document.getElementById('resultado1').innerHTML=`Conversão bem sucedida resultado = ${data.celsius_parafar} F`
             break;
+        case 2:
+            document.getElementById('resultado1').innerHTML=`Conversão bem sucedida resultado = ${data.far_para_celsius} C`
+            break;
+        case 3:
+            document.getElementById('resultado1').innerHTML=`Conversão bem sucedida resultado = ${data.celsius_para_kelvin} K`
+            break
+        case 4:
+            document.getElementById('resultado1').innerHTML=`Conversão bem sucedida resultado = ${data.kelvin_para_celsius} C`
+            break
+
+
+    }
+    if(celsius === 0 && far === 0 && kelvin === 0){
+        document.getElementById('resultado1').innerHTML = "Insira um valor para realizar o calculo"
     }
     
 }

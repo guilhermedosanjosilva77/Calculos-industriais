@@ -51,9 +51,9 @@ def calcular_valores():
 @app.route("/api/conversaoTemperaturas", methods = ['POST'])
 def conversaoTemperaturas():
     dados=request.json
-    celsius = float(dados.get('celsius'))
-    kelvin=float(dados.get('kelvin'))
-    far=float(dados.get('far'))
+    celsius = float(dados.get('celsius') or 0)
+    kelvin=float(dados.get('kelvin') or 0)
+    far=float(dados.get('far') or 0)
 
     celsius_para_far=float(((9/5)*celsius) + 32)
     far_para_celsius=(5/9)*(far-32)
